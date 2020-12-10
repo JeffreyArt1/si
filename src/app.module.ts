@@ -1,14 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { AuthController } from './modules/auth/auth.controller';
-import { ListingController } from './modules/listing/listing.controller';
+import { DatabaseModule } from './database/database.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { ListingModule } from './modules/listing/listing.module';
 
 @Module({
-  imports: [ConfigModule.forRoot()],
-  controllers: [AppController, ListingController, AuthController],
-  providers: [AppService, ConfigService],
+  imports: [ConfigModule.forRoot(), DatabaseModule, AuthModule, ListingModule],
 })
 export class AppModule {
   static port: number;
