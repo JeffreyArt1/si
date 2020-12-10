@@ -18,5 +18,3 @@ export class User {
   @Column({ length: 24, nullable: false })
   lastname: string;
 }
-
-export default User;
