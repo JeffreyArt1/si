@@ -1,13 +1,13 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Auth {
+export class User {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @Column({ length: 16, nullable: false })
+  @Column({ length: 16, nullable: false, unique: true })
   @Index()
-  username: string;
+  email: string;
 
   @Column({ length: 48, nullable: false })
   password: string;
@@ -18,3 +18,5 @@ export class Auth {
   @Column({ length: 24, nullable: false })
   lastname: string;
 }
+
+export default User;
