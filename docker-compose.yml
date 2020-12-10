@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  database:
+    image: postgres
+    container_name: si
+    restart: always
+    environment:
+      - POSTGRES_DB=${DTBS_NAME}
+      - POSTGRES_USER=${DTBS_USER}
+      - POSTGRES_PASSWORD=${DTBS_PSWD}
+      - TZ=America/Santo_Domingo
+    volumes:
+      - ${DTBS_VOL0}:/var/lib/postgresql/data
+    ports:
+      - ${DTBS_PORT}:5432
