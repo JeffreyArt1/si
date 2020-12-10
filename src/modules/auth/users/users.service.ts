@@ -1,7 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
+import { HttpExceptionMessages } from 'src/utils/enums/http-exception-messages.enum';
+import { HttpExceptionThrower } from 'src/utils/functions/http-exception-thrower';
 import { CreateUserDto } from './dto/';
 import { User } from './user.entity';
 
@@ -12,21 +14,16 @@ export class UsersService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  throwException = (message: string, status: HttpStatus) => {
-    throw new HttpException(message, status);
-  };
-
-  async getUserByEmail(email: string) {
+  async getByEmail(email: string): Promise<User> {
     const user = await this.userRepository.findOne({ email });
-    return user
-      ? user
-      : this.throwException(
-          "Oops! this email doesn't seem to exist in our DB",
-          HttpStatus.NOT_FOUND,
-        );
+    if (user) return user;
+    HttpExceptionThrower(
+      HttpExceptionMessages.EMAIL_NOT_EXISTS,
+      HttpStatus.NOT_FOUND,
+    );
   }
 
-  async createUser(data: CreateUserDto) {
+  async create(data: CreateUserDto): Promise<User> {
     const user = await this.userRepository.create(data); //????
     await this.userRepository.save(user);
     return user;
