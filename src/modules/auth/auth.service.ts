@@ -6,7 +6,7 @@ import {
 import * as bcrypt from 'bcrypt';
 
 import { SignUpDto } from './dto/sign-up.dto';
-import { UsersService } from './users/users.service';
+import { UsersService } from '../users/users.service';
 import { HttpExceptionMessages } from 'src/utils/enums/http-exception-messages.enum';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';

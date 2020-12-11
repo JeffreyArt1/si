@@ -4,7 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { Request } from 'express';
 
-import { UsersService } from '../users/users.service';
+import { UsersService } from '../../users/users.service';
 import { TokenPayload } from '../interfaces/tokenPayload.interface';
 
 @Injectable()
