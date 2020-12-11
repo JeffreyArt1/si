@@ -1,9 +1,12 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 
 import { SignUpDto } from './dto/sign-up.dto';
 import { UsersService } from './users/users.service';
-import { HttpExceptionThrower } from 'src/utils/functions/http-exception-thrower';
 import { HttpExceptionMessages } from 'src/utils/enums/http-exception-messages.enum';
 
 @Injectable()
@@ -19,13 +22,9 @@ export class AuthService {
       return data;
     } catch (error) {
       return error?.code === '23505'
-        ? HttpExceptionThrower(
-            HttpExceptionMessages.EMAIL_EXISTS,
-            HttpStatus.BAD_REQUEST,
-          )
-        : HttpExceptionThrower(
+        ? new BadRequestException(HttpExceptionMessages.EMAIL_EXISTS)
+        : new InternalServerErrorException(
             HttpExceptionMessages.INTERNAL_ERROR,
-            HttpStatus.INTERNAL_SERVER_ERROR,
           );
     }
   }
@@ -33,10 +32,7 @@ export class AuthService {
   async validatePasswd(passwd: string, saltyPasswd: string) {
     const correctPasswd = await bcrypt.compare(passwd, saltyPasswd);
     if (!correctPasswd) {
-      HttpExceptionThrower(
-        HttpExceptionMessages.BAD_PASSWD,
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      new InternalServerErrorException(HttpExceptionMessages.BAD_PASSWD);
     }
   }
 
@@ -47,10 +43,7 @@ export class AuthService {
       delete user.password;
       return user;
     } catch (error) {
-      HttpExceptionThrower(
-        HttpExceptionMessages.BAD_PASSWD,
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+      new InternalServerErrorException(HttpExceptionMessages.BAD_PASSWD);
     }
   }
 }

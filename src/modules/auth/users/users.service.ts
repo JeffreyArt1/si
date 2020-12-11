@@ -1,9 +1,8 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { HttpExceptionMessages } from 'src/utils/enums/http-exception-messages.enum';
-import { HttpExceptionThrower } from 'src/utils/functions/http-exception-thrower';
 import { CreateUserDto } from './dto/';
 import { User } from './user.entity';
 
@@ -17,10 +16,7 @@ export class UsersService {
   async getByEmail(email: string): Promise<User> {
     const user = await this.userRepository.findOne({ email });
     if (user) return user;
-    HttpExceptionThrower(
-      HttpExceptionMessages.EMAIL_NOT_EXISTS,
-      HttpStatus.NOT_FOUND,
-    );
+    new NotFoundException(HttpExceptionMessages.EMAIL_NOT_EXISTS);
   }
 
   async create(data: CreateUserDto): Promise<User> {

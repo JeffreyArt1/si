@@ -5,16 +5,16 @@ export class User {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @Column({ length: 16, nullable: false, unique: true })
+  @Column({ nullable: false, unique: true })
   @Index()
   email: string;
 
-  @Column({ length: 48, nullable: false })
+  @Column({ nullable: false })
   password: string;
 
-  @Column({ length: 24, nullable: false })
+  @Column({ nullable: false })
   name: string;
 
-  @Column({ length: 24, nullable: false })
+  @Column({ nullable: false })
   lastname: string;
 }
