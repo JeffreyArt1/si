@@ -45,21 +45,20 @@ export class Bussiness {
   @Column({ length: 256 })
   website: string;
 
-  // @OneToMany((type) => Categories, (category) => category.id)
-  // @JoinColumn()
-  // categories: Categories;
+  @OneToMany((type) => Categories, (category) => category.id)
+  categories: Categories[];
 
-  // @OneToMany((type) => PaymentMethods, (paymentMethod) => paymentMethod.id)
-  // @JoinColumn()
-  // payment_methods: PaymentMethods;
+  @OneToMany((type) => PaymentMethods, (paymentMethod) => paymentMethod.id)
+  @JoinColumn()
+  payment_methods: PaymentMethods;
 
-  // @OneToMany((type) => Schedule, (schedule) => schedule.id)
-  // @JoinColumn()
-  // schedule: Schedule;
+  @OneToMany((type) => Schedule, (schedule) => schedule.id)
+  @JoinColumn()
+  schedule: Schedule;
 
-  // @OneToMany((type) => Languages, (language) => language.id)
-  // @JoinColumn()
-  // languages: Languages;
+  @OneToMany((type) => Languages, (language) => language.id)
+  @JoinColumn()
+  languages: Languages;
 
   @Column({ length: 256 })
   logo: string;

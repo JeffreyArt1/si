@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Bussiness } from './bussiness.entity';
 
 @Entity()
 export class Categories {
@@ -10,4 +17,8 @@ export class Categories {
 
   @Column()
   points: number;
+
+  @ManyToOne((type) => Categories, (categories) => categories.id)
+  @JoinColumn()
+  categories: Categories;
 }
