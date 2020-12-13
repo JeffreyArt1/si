@@ -5,10 +5,11 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+
 import { Bussiness } from './bussiness.entity';
 
 @Entity()
-export class Categories {
+export class Category {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
@@ -18,7 +19,6 @@ export class Categories {
   @Column()
   points: number;
 
-  @ManyToOne((type) => Categories, (categories) => categories.id)
-  @JoinColumn()
-  categories: Categories;
+  @ManyToOne((type) => Bussiness, (bussiness) => bussiness.categories)
+  bussiness: Bussiness;
 }
