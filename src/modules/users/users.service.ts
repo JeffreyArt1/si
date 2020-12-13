@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 
 import { HttpExceptionMessages } from 'src/utils/enums/http-exception-messages.enum';
 import { CreateUserDto } from './dto/';
-import { User } from './user.entity';
+import { User } from './entities/';
 
 @Injectable()
 export class UsersService {
@@ -14,19 +14,23 @@ export class UsersService {
   ) {}
 
   async create(data: CreateUserDto): Promise<User> {
-    const user = await this.userRepository.create(data); //????
+    const user = await this.userRepository.create(data);
     await this.userRepository.save(user);
     return user;
   }
 
-  async getByEmail(email: string): Promise<User> {
-    const user = await this.userRepository.findOne({ email });
+  async getUser(id?: number, email?: string): Promise<User> {
+    const user = await this.userRepository.findOne({
+      where: [{ id }, { email }],
+    });
     if (user) return user;
     new NotFoundException(HttpExceptionMessages.EMAIL_NOT_EXISTS);
   }
 
-  async getById(id: number) {
-    const user = await this.userRepository.findOne({ id });
-    if (user) return user;
+  async userExists(id?: number, email?: string): Promise<User> {
+    const user = await this.userRepository.findOne({
+      where: [{ id }, { email }],
+    });
+    return user ? user : null;
   }
 }
