@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ConflictException,
   Injectable,
   InternalServerErrorException,
 } from '@nestjs/common';
@@ -11,6 +12,8 @@ import { HttpExceptionMessages } from 'src/utils/enums/http-exception-messages.e
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { TokenPayload } from './interfaces/tokenPayload.interface';
+import { User } from '../users/entities/';
+import { MailService } from 'src/utils/mail/mail.service';
 
 @Injectable()
 export class AuthService {
@@ -18,22 +21,24 @@ export class AuthService {
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
+    private readonly mailService: MailService,
   ) {}
 
-  async singUp(data: SignUpDto) {
-    const hash = await bcrypt.hash(data.password, 5);
-    data.password = hash;
-    try {
-      await this.usersService.create(data);
-      data.password = undefined;
-      return data;
-    } catch (error) {
-      return error?.code === '23505'
-        ? new BadRequestException(HttpExceptionMessages.EMAIL_EXISTS)
-        : new InternalServerErrorException(
-            HttpExceptionMessages.INTERNAL_ERROR,
-          );
+  async singUp(user: SignUpDto) {
+    const { email } = user;
+    const userAlreadyExists: User = await this.usersService.userExists(
+      0,
+      email,
+    );
+
+    if (userAlreadyExists) {
+      throw new ConflictException(HttpExceptionMessages.EMAIL_EXISTS);
     }
+
+    user.password = await bcrypt.hash(user.password, 8);
+    const createdUser: User = await this.usersService.create(user);
+
+    const message = await this.verifyEmail(createdUser);
   }
 
   async validatePasswd(passwd: string, saltyPasswd: string) {
@@ -45,7 +50,7 @@ export class AuthService {
 
   async getAuthUser(email: string, passwd: string) {
     try {
-      const user = await this.usersService.getByEmail(email);
+      const user = await this.usersService.getUser(0, email);
       await this.validatePasswd(passwd, user.password);
       user.password = undefined;
       return user;
@@ -64,5 +69,9 @@ export class AuthService {
 
   getLogOutCookie() {
     return 'Authentication=; HttpOnly; Path=/; Max-Age=0';
+  }
+
+  verifyEmail(user: User) {
+    return user;
   }
 }
