@@ -1,8 +1,7 @@
 FROM node:12
-WORKDIR /
+WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
 RUN npm run build
-EXPOSE 3000/tcp
-CMD [ "node", "dist/main.js" ]
+CMD [ "npm","run","start:prod" ]

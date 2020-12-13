@@ -1,9 +1,28 @@
-version: '3'
+version: '3.7'
 
 services:
+  application:
+    container_name: ${BCKND_NAME}_APPLICATION
+    build: .
+    environment:
+      - BCKND_NAME=${BCKND_NAME}
+      - BCKND_PORT=${BCKND_PORT}
+      - BCKND_ENV0=${BCKND_ENV0}
+      - JWT_SCRT=${JWT_SCRT}
+      - JWT_EXPI=${JWT_EXPI}
+      - DTBS_HOST=${DTBS_HOST}
+      - DTBS_PORT=${DTBS_PORT}
+      - DTBS_NAME=${DTBS_NAME}
+      - DTBS_USER=${DTBS_USER}
+      - DTBS_PSWD=${DTBS_PSWD}
+      - DTBS_LOGS=${DTBS_LOGS}
+      - DTBS_VOL0=${DTBS_VOL0}
+      - SNGRD_APIK=${SNGRD_APIK}
+    ports:
+      - 80:${BCKND_PORT}
   database:
     image: postgres
-    container_name: si
+    container_name: ${BCKND_NAME}_POSTGRESS_DB
     restart: always
     environment:
       - POSTGRES_DB=${DTBS_NAME}
