@@ -1,4 +1,5 @@
 import {
+  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
@@ -10,7 +11,7 @@ import {
 import { User } from './';
 
 @Entity()
-export class Token {
+export class Token extends BaseEntity {
   @PrimaryGeneratedColumn('increment')
   id: number;
 

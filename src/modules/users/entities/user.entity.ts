@@ -1,4 +1,6 @@
+import { randomBytes } from 'crypto';
 import {
+  BaseEntity,
   Column,
   Entity,
   Index,
@@ -8,7 +10,7 @@ import {
 import { Token } from './token.entity';
 
 @Entity()
-export class User {
+export class User extends BaseEntity {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
@@ -27,4 +29,13 @@ export class User {
 
   @OneToMany((type) => Token, (token) => token.user)
   tokens: string[];
+
+  async generateToken(): Promise<Token> {
+    const token = new Token();
+    token.user = this;
+    token.token = randomBytes(20).toString('hex');
+    token.createdAt = new Date();
+
+    return await token.save();
+  }
 }
