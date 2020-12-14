@@ -15,8 +15,36 @@ export class ListingService {
     return this.bussinessRepository.findOne(id);
   }
 
-  async getAllBussinesses(): Promise<Bussiness[]> {
-    return this.bussinessRepository.find();
+  async getAllBussinesses(
+    sort = 'ASC',
+    city?: string,
+    name?: string,
+  ): Promise<Bussiness[]> {
+    if (name) {
+      return await this.bussinessRepository.find({
+        where: { name },
+        order: { name: sort === 'ASC' ? 'ASC' : 'DESC' },
+      });
+    }
+    if (city) {
+      return await this.bussinessRepository.find({
+        where: { city },
+        order: { name: sort === 'ASC' ? 'ASC' : 'DESC' },
+        cache: true,
+      });
+    }
+    if (name && city) {
+      return await this.bussinessRepository.find({
+        where: [{ name }, { city }],
+        order: { name: sort === 'ASC' ? 'ASC' : 'DESC' },
+        cache: true,
+      });
+    }
+
+    return await this.bussinessRepository.find({
+      order: { name: 'ASC' },
+      cache: true,
+    });
   }
 
   async createBussiness(data: Bussiness) {
