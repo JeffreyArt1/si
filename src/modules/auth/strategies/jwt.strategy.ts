@@ -5,7 +5,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Request } from 'express';
 
 import { UsersService } from '../../users/users.service';
-import { TokenPayload } from '../interfaces/tokenPayload.interface';
+import { JwtPayload } from '../interfaces/';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -22,7 +22,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       secretOrKey: configService.get('JWT_SCRT'),
     });
   }
-  async validate(payload: TokenPayload) {
+  async validate(payload: JwtPayload) {
     return this.usersService.getUser(payload.id);
   }
 }

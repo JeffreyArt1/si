@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignUpDto } from './dto/sign-up.dto';
-import { RequestWithtUser } from './interfaces/requestWithUser.interface';
+import { RequestWithtUser } from './interfaces/';
 import { JwtAuthGuard, LocalAuth } from './guards/';
 import { Response } from 'express';
 
