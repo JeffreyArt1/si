@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { Bussiness } from './entities/bussiness.entity';
 import { ListingController } from './listing.controller';
 import { ListingService } from './listing.service';
+import { Bussiness } from './entities/';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Bussiness])],

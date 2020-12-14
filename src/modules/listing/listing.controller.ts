@@ -6,11 +6,12 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { TransformInterceptor } from 'src/common/interceptors';
-import { JwtAuthGuard } from '../auth/guards';
-import { ReadBussinessDto } from './dto';
+
+import { TransformInterceptor } from '@common/interceptors';
 import { Bussiness } from './entities/bussiness.entity';
+import { JwtAuthGuard } from '@modules/auth/guards';
 import { ListingService } from './listing.service';
+import { ReadBussinessDto } from './dto';
 
 @Controller('listing')
 export class ListingController {

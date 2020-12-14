@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { HttpExceptionMessages } from 'src/utils/enums/http-exception-messages.enum';
+import { HttpExceptionMessages } from '@utils/enums/http-exception-messages.enum';
 import { CreateUserDto } from './dto/';
 import { User } from './entities/';
 

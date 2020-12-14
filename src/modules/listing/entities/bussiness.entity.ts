@@ -8,10 +8,8 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Category } from './category.entity';
-import { PaymentMethod } from './payment-method.entity';
-import { Schedule } from './schedule.entity';
-import { Language } from './language.entity';
+
+import { PaymentMethod, Schedule, Category, Language } from './';
 
 @Entity()
 export class Bussiness {

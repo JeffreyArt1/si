@@ -5,20 +5,20 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { REQUEST } from '@nestjs/core';
+import { Repository } from 'typeorm';
 import { Request } from 'express';
 import * as bcrypt from 'bcrypt';
 
-import { HttpExceptionMessages } from 'src/utils/enums/http-exception-messages.enum';
-import { JwtPayload } from './interfaces/';
-import { MailService } from 'src/utils/mail/mail.service';
-import { UsersService } from '../users/users.service';
+import { HttpExceptionMessages } from '@utils/enums/http-exception-messages.enum';
+import { UsersService } from '@modules/users/users.service';
+import { MailService } from '@utils/mail/mail.service';
+import { Token, User } from '@modules/users/entities/';
 import { SignInDto, SignUpDto } from './dto/';
-import { Token, User } from '../users/entities/';
-import { Repository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
+import { JwtPayload } from './interfaces/';
 
 @Injectable()
 export class AuthService {

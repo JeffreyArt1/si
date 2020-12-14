@@ -1,9 +1,9 @@
-import { DynamicModule } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { DynamicModule } from '@nestjs/common';
+import { ConnectionOptions } from 'typeorm';
 import { writeFileSync } from 'fs';
 import { join } from 'path';
-import { ConnectionOptions } from 'typeorm';
 
 async function createOrmConfigFile(databaseCfg: ConnectionOptions) {
   const path = join(__dirname, '../../');

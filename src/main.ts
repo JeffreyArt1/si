@@ -1,10 +1,11 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import * as helmet from 'helmet';
-import * as compression from 'compression';
-import * as cookieParser from 'cookie-parser';
-import { DatabaseExceptionFilter, HttpExceptionFilter } from './common/filters';
 import { ValidationPipe } from '@nestjs/common';
+import * as cookieParser from 'cookie-parser';
+import * as compression from 'compression';
+import { NestFactory } from '@nestjs/core';
+import * as helmet from 'helmet';
+
+import { DatabaseExceptionFilter, HttpExceptionFilter } from '@common/filters';
+import { AppModule } from '@core/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
