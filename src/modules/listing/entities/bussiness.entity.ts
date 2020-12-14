@@ -25,7 +25,6 @@ export class Bussiness {
   @Column()
   description: string;
 
-  //? Esto deberia ser un enum o algo
   @Column()
   country: string;
 
@@ -33,18 +32,21 @@ export class Bussiness {
   city: string;
 
   @Column()
+  @Index()
   zip_code: number;
 
   @Column({ nullable: false })
   address: string;
 
   @Column({ nullable: false })
+  @Index()
   phone: string;
 
   @Column({ type: 'text', array: true })
   tags: string[];
 
   @Column()
+  @Index()
   website: string;
 
   @ManyToMany((type) => Category)
