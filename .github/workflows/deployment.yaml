@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - master
+env:
+  AZURE_WEBAPP_NAME: si-app
 
 jobs:
   push_to_registry:
@@ -28,7 +30,7 @@ jobs:
       - name: Deploy to Azure
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'app-si'
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
           images: jeffreyart1/si
 
       - name: Setup env variables
