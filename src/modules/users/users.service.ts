@@ -27,10 +27,8 @@ export class UsersService {
     new NotFoundException(HttpExceptionMessages.EMAIL_NOT_EXISTS);
   }
 
-  async userExists(id?: number, email?: string): Promise<User> {
-    const user = await this.userRepository.findOne({
-      where: [{ id }, { email }],
-    });
+  async userExists(email: string): Promise<User> {
+    const user = await this.userRepository.findOne(email);
     return user ? user : null;
   }
 }
