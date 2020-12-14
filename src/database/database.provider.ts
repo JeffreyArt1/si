@@ -23,6 +23,7 @@ export const DatabaseProvider: DynamicModule = TypeOrmModule.forRootAsync({
       password: cfg.get('DTBS_PSWD'),
       port: +cfg.get('DTBS_PORT'),
       database: cfg.get('DTBS_NAME'),
+      ssl: true,
       autoLoadEntities: true,
       synchronize: devMode,
       entities: ['dist/**/*.entity.js'],
