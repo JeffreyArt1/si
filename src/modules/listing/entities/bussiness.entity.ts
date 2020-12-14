@@ -49,23 +49,35 @@ export class Bussiness {
   @Index()
   website: string;
 
-  @ManyToMany((type) => Category)
+  @ManyToMany((type) => Category, {
+    cascade: true,
+    eager: true,
+  })
   @JoinTable()
   categories: Category[];
 
   @OneToMany(
     (type) => PaymentMethod,
     (paymentMethod) => paymentMethod.bussiness,
+    {
+      cascade: true,
+      eager: true,
+    },
   )
   @JoinColumn()
   payment_methods: PaymentMethod[];
 
   @OneToMany((type) => Schedule, (schedule) => schedule.bussiness, {
-  )
+    cascade: true,
+    eager: true,
+  })
   @JoinColumn()
   schedule: Schedule[];
 
-  @ManyToMany((type) => Language)
+  @ManyToMany((type) => Language, {
+    cascade: true,
+    eager: true,
+  })
   @JoinTable()
   languages: Language[];
 
