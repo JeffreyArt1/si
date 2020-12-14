@@ -27,6 +27,9 @@ export class User extends BaseEntity {
   @Column({ nullable: false })
   lastname: string;
 
+  @Column({ nullable: false, default: false })
+  verified: boolean;
+
   @OneToMany((type) => Token, (token) => token.user)
   tokens: string[];
 
