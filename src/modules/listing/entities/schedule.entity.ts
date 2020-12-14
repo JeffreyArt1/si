@@ -1,4 +1,10 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 import { Bussiness } from './bussiness.entity';
 
@@ -7,7 +13,6 @@ export class Schedule {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  //? esto deberia ser el id de otra entidad con los dias de la semana
   @Column()
   day: number;
 
@@ -18,5 +23,6 @@ export class Schedule {
   close: string;
 
   @ManyToOne((type) => Bussiness, (bussiness) => bussiness.schedule)
+  @JoinColumn()
   bussiness: Bussiness;
 }
