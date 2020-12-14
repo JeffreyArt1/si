@@ -53,11 +53,15 @@ export class Bussiness {
   @JoinTable()
   categories: Category[];
 
-  @OneToMany((type) => PaymentMethod, (paymentMethod) => paymentMethod.id)
+  @OneToMany(
+    (type) => PaymentMethod,
+    (paymentMethod) => paymentMethod.bussiness,
+  )
   @JoinColumn()
   payment_methods: PaymentMethod[];
 
-  @OneToMany((type) => Schedule, (schedule) => schedule.id)
+  @OneToMany((type) => Schedule, (schedule) => schedule.bussiness, {
+  )
   @JoinColumn()
   schedule: Schedule[];
 
