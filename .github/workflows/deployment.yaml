@@ -36,7 +36,7 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           app-settings-json: |
-          [
+            [
               {
                   "name": "BCKND_PORT",
                   "value": "${{ secrets.APP_PORT }}",
@@ -87,7 +87,7 @@ jobs:
                   "value": "${{ secrets.JWT_EXPI }}",
                   "slotSetting": false
               }
-          ]
+            ]
 
       - name: Azure logout
         run: |
