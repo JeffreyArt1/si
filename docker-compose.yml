@@ -18,6 +18,7 @@ services:
       - DTBS_LOGS=${DTBS_LOGS}
       - DTBS_VOL0=${DTBS_VOL0}
       - SNGRD_APIK=${SNGRD_APIK}
+      - SNGRD_MAIL=${SNGRD_MAIL}
     ports:
       - 80:${BCKND_PORT}
   database:

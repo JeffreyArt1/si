@@ -75,11 +75,6 @@ jobs:
                   "slotSetting": false
               },
               {
-                  "name": "SNGRD_APIK",
-                  "value": "${{ secrets.SENDGRID_API_KEY }}",
-                  "slotSetting": false
-              },
-              {
                   "name": "JWT_SCRT",
                   "value": "${{ secrets.JWT_SCRT }}",
                   "slotSetting": false
@@ -87,6 +82,16 @@ jobs:
               {
                   "name": "JWT_EXPI",
                   "value": "${{ secrets.JWT_EXPI }}",
+                  "slotSetting": false
+              },
+              {
+                  "name": "SNGRD_APIK",
+                  "value": "${{ secrets.SENDGRID_API_KEY }}",
+                  "slotSetting": false
+              },
+              {
+                  "name": "SNGRD_MAIL",
+                  "value": "${{ secrets.SENDGRID_FROM_MAIL }}",
                   "slotSetting": false
               }
             ]
