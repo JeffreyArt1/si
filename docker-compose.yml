@@ -20,6 +20,7 @@ services:
       - SNGRD_APIK=${SNGRD_APIK}
     ports:
       - 80:${BCKND_PORT}
+    network_mode: 'host'
   database:
     image: postgres
     container_name: ${BCKND_NAME}_POSTGRESS_DB
