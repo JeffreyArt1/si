@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+
 jobs:
   push_to_registry:
     name: Push Docker image to Docker Hub
@@ -10,6 +11,7 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
+
       - name: Push to Docker Hub
         uses: docker/build-push-action@v1
         with:
@@ -17,3 +19,18 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           repository: jeffreyart1/si
           tag_with_ref: true
+
+      - name: 'Login via Azure CLI'
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy to Azure
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'app-si'
+          images: jeffreyart1/si
+
+      - name: Azure logout
+        run: |
+          az logout
