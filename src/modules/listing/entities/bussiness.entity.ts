@@ -3,6 +3,8 @@ import {
   Entity,
   Index,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -45,7 +47,8 @@ export class Bussiness {
   @Column()
   website: string;
 
-  @OneToMany((type) => Category, (category) => category.bussiness)
+  @ManyToMany((type) => Category)
+  @JoinTable()
   categories: Category[];
 
   @OneToMany((type) => PaymentMethod, (paymentMethod) => paymentMethod.id)
@@ -56,8 +59,8 @@ export class Bussiness {
   @JoinColumn()
   schedule: Schedule[];
 
-  @OneToMany((type) => Language, (language) => language.id)
-  @JoinColumn()
+  @ManyToMany((type) => Language)
+  @JoinTable()
   languages: Language[];
 
   @Column()

@@ -1,12 +1,4 @@
-import {
-  Column,
-  Entity,
-  Index,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-
-import { Bussiness } from './bussiness.entity';
+import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Language {
@@ -16,7 +8,4 @@ export class Language {
   @Column({ length: 16, nullable: false })
   @Index()
   language: string;
-
-  @ManyToOne((type) => Bussiness, (bussiness) => bussiness.languages)
-  bussiness: Bussiness;
 }

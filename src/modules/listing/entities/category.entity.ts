@@ -1,12 +1,4 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-
-import { Bussiness } from './bussiness.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Category {
@@ -18,7 +10,4 @@ export class Category {
 
   @Column()
   points: number;
-
-  @ManyToOne((type) => Bussiness, (bussiness) => bussiness.categories)
-  bussiness: Bussiness;
 }
