@@ -5,9 +5,11 @@ import { PassportModule } from '@nestjs/passport';
 
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { JwtStrategy, LocalStrategy } from './strategies/';
+import { JwtStrategy } from './strategies/';
 import { UsersModule } from '../users/users.module';
 import { MailModule } from 'src/utils/mail/mail.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Token } from '../users/entities';
 
 @Module({
   imports: [
@@ -23,8 +25,9 @@ import { MailModule } from 'src/utils/mail/mail.module';
         signOptions: { expiresIn: configService.get('JWT_EXPI') },
       }),
     }),
+    TypeOrmModule.forFeature([Token]),
   ],
-  providers: [AuthService, LocalStrategy, JwtStrategy],
+  providers: [AuthService, JwtStrategy],
   controllers: [AuthController],
 })
 export class AuthModule {}
