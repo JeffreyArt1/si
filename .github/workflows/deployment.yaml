@@ -31,6 +31,64 @@ jobs:
           app-name: 'app-si'
           images: jeffreyart1/si
 
+      - name: Setup env variables
+        uses: azure/appservice-settings@v1
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          app-settings-json: |
+          [
+              {
+                  "name": "BCKND_PORT",
+                  "value": "${{ secrets.APP_PORT }}",
+                  "slotSetting": false
+              },
+              {
+                  "name": "BCKND_ENV0",
+                  "value": "${{ secrets.APP_ENV }}",
+                  "slotSetting": false
+              },
+              {
+                  "name": "DTBS_HOST",
+                  "value": "${{ secrets.DB_HOST }}",
+                  "slotSetting": false
+              },
+              {
+                  "name": "DTBS_PORT",
+                  "value": "${{ secrets.DB_PORT }}",
+                  "slotSetting": false
+              },
+              {
+                  "name": "DTBS_USER",
+                  "value": "${{ secrets.DB_USER }}",
+                  "slotSetting": false
+              },
+              {
+                  "name": "DTBS_PSWD",
+                  "value": "${{ secrets.DB_PASSWORD }}",
+                  "slotSetting": false
+              },
+              {
+                  "name": "DTBS_NAME",
+                  "value": "${{ secrets.DB_NAME }}",
+                  "slotSetting": false
+              },
+              {
+                  "name": "SNGRD_APIK",
+                  "value": "${{ secrets.SENDGRID_API_KEY }}",
+                  "slotSetting": false
+              },
+              {
+                  "name": "JWT_SCRT",
+                  "value": "${{ secrets.JWT_SCRT }}",
+                  "slotSetting": false
+              },
+              {
+                  "name": "JWT_EXPI",
+                  "value": "${{ secrets.JWT_EXPI }}",
+                  "slotSetting": false
+              }
+          ]
+
       - name: Azure logout
         run: |
           az logout
